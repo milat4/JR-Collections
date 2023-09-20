@@ -1,7 +1,7 @@
 const express = require('express');
 const dotEnv= require('dotenv');
-const {adminRoute, frontendRoute, } = require('./routes');
-const expressEjsLayouts = require('express-ejs-layouts');
+const {adminRoute, frontendRoute } = require('./routes');
+const expressEjsLayout = require('express-ejs-layouts');
 
 //configure env
 dotEnv.config()
@@ -11,19 +11,30 @@ const port = process.env.PORT||3000
 
 const app = express();
 //serve static
-aap.use(express.static(__dirname+'/public'))
+app.use(express.static(__dirname+'/public'))
 
-//setting the view engine
-app.set('view', 'ejs')
-app.use(expressEjsLayouts())
+//setting the view engine & layouts
+app.set('view engine','ejs')
+app.use(expressEjsLayout)
+app.set('layout', 'pages/admin/layouts/master')
 //users routes
-app.use('/', frontendRoute)
-app.use('/admin', adminRoute)
+//app.use('/', frontendRoute);
+//Admin routes
+app.use('/admin', adminRoute);
 
 // app.use('*', (req, res)=>{
 //    res.send('worked')
 // })
 
-app.listen(port,()=>{
-   console.log(`server is running on http://localhost:${port}`);
-})
+// 
+
+const startServer=async()=>{
+   try {
+       app.listen(port,()=>{
+           console.log(`server is running on {http://localhost:${port}}`);
+       })
+   } catch (error) {
+       console.log(Error);
+   }
+   } 
+   startServer()
