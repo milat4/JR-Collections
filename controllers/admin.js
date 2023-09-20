@@ -3,6 +3,10 @@ const index = (req, res)=>{
 
 }
 
+const viewLogin = (req, res)=>{
+    res.render('pages/admin/pages/login', {layout:'pages/admin/layouts/other'})
+}
 module.exports= {
-    index
+    index,
+    viewLogin
 }
